@@ -12,6 +12,7 @@ spec:
       labels:
         component: postgres
     spec:
+      # volume configuration for the pod
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
@@ -21,15 +22,13 @@ spec:
           image: fhsinchy/notes-postgres
           ports:
             - containerPort: 5432
+          # volume mounting configuration for the container
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
               subPath: postgres
           env:
             - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: password
+              value: 63eaQB9wtLqmNBpg
             - name: POSTGRES_DB
               value: notesdb
